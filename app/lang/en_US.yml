@@ -1,0 +1,12 @@
+# Text to build the push messages
+m_push: "* make a push on `" 
+m_branch: "` at the branch `" 
+m_commit: " commits made."
+# Text to build the merge request messages
+m_merge: "*Merge Request* on project `"
+opened_by: " opened by: "
+updated_by: " updated by: "
+merged_by: " merged by: "
+send_by: "Send by: "
+send_to: "To: "
+no_assignee: "You must define a reviewer to your Merge Request."

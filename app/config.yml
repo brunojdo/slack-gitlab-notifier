@@ -1,0 +1,22 @@
+system: 
+  name: "Slack-Gitlab Notifier"
+  port:
+lang_selector: "lang/en_US.yml"
+slack: 
+  bot:
+    name: "Gitlab"
+    token: ""
+    icon: ":cat:"
+  push_channel: "git"
+  mr_channel: "codereview"
+  clrPush: "#fb6c25"
+  clrOpen: "#36a64f"
+  clrUpdate: "#3019ff"
+  clrMerge: "#16c8c6"
+  clrNotAssigned: "#dd111f"
+gitlab:
+  events: 
+    - 
+      "Push Hook"
+    - 
+      "Merge Request Hook"

@@ -7,7 +7,7 @@ So far, we integrated *Push Hooks* and *Merge Request Hooks*.
 **IMPORTANT:** If you want to notify the slack users through DM, they must have the same username in Gitlab and Slack.
 ##### Ex: Slack username: @brunojdo and Gitlab username: brunojdo
 
-### Specs
+### Dependencies
 
 * NodeJS 8.3
 * Express 4.10.*
@@ -32,7 +32,7 @@ If you prefer, you may also clone this project and run `npm`. On the `./app` fol
 
 ### Enable Webhooks
 
-In your Gitlab project select **Settings -> Integrations** and put your service address. For example, on: `http://localhost:8008/webhook` select which hooks you want use. For more informations [click here.](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html)
+In your Gitlab project select **Settings -> Integrations** and put your service address. For example, on: `http://localhost:8008/webhook` select which hooks you want use. For more information [click here.](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html)
 
 ### Create a SlackBot
 
@@ -40,24 +40,24 @@ To create a slackbot [click here](https://my.slack.com/services/new/bot). If you
 
 ### File `config.yml`
 
-This file has several configurations options, such as: 
+This file has several configuration options, such as: 
 
 | Parameter	| Description | Required |
 | :------- | :------ | :------ |
-| system.name | *Name that appear when access the root address* | `true` |
+| system.name | *Name to display when accessing the root address* | `true` |
 | system.port | *Service port* (Default: `8080`) | `false` |
-| lang_selector | *Language defined to notifications* | `true` |
+| lang_selector | *Language to use for notifications* | `true` |
 | slack.bot.name | *Bot Name* | `true` |
 | slack.bot.token | *Bot Token* | `true` |
-| slack.bot.icon | *Image that will appears at the bot avatar* | `false` |
-| slack.push_channel | *Slack Channel that service will notify the Push Events* | `true` |
-| slack.mr_channel | *Slack Channel that service will notify the MR Events* | `true` |
-| slack.clrPush | *Color to push messages* | `false` |
-| slack.clrOpen | *Color to opened MR messages* | `false` |
-| slack.clrUpdate | *Color to updated MR messages* | `false` |
-| slack.clrMerge | *Color to merged MR messages* | `false` |
+| slack.bot.icon | *Image for the bot avatar* | `false` |
+| slack.push_channel | *Slack channel where Push Event notifications will be posted* | `true` |
+| slack.mr_channel | *Slack channel where MR Event notifications will be posted* | `true` |
+| slack.clrPush | *Color of push messages* | `false` |
+| slack.clrOpen | *Color of opened MR messages* | `false` |
+| slack.clrUpdate | *Color of updated MR messages* | `false` |
+| slack.clrMerge | *Color of merged MR messages* | `false` |
 | slack.clrNotAssigned | *Color when MR has no selected Assignee* | `false` |
-| gitlab.events | *List of all Hooks accepted to the service*  | `true` |
+| gitlab.events | *List of all Hooks accepted by service*  | `true` |
 
 
 ## Language options
@@ -67,20 +67,20 @@ This project has **two** languages defined to send slack notifications:
 * English (`lang/en_US.yml`)
 * Brazilian Portuguese (`lang/pt_BR.yml`)
 
-**How to choose language**
+**Select a language**
 
-Just change the `lang_selector` parameter into `config.yml` file to the language that you prefer. 
+Just change the `lang_selector` parameter inside `config.yml` file to your preferred language. 
 
 You can also contribute with the project by translating it to your language and submitting a PR to us!
 
 
 ## Troubleshooting 
 
-You can check if others are experiencing similar issues [here](https://github.com/brunojdo/slack-gitlab-notifier/issues/new). Also feel free to open [issues](https://github.com/brunojdo/slack-gitlab-notifier/issues/new) 
+You can check if others are experiencing similar issues [here](https://github.com/brunojdo/slack-gitlab-notifier/issues/new). Also feel free to open [issues](https://github.com/brunojdo/slack-gitlab-notifier/issues/new).
 
 ## Contributing
 
-You can contribute to our project!! To do this, see our **issues list** and make a [PR](https://github.com/brunojdo/slack-gitlab-notifier/pulls)! :heart:
+You can contribute to our project!! To do this, see our **list of issues** and make a [PR](https://github.com/brunojdo/slack-gitlab-notifier/pulls)! :heart:
 
 ## Acknowledgement
 

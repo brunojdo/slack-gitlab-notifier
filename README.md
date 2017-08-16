@@ -12,7 +12,11 @@ So far, we integrated *Push Hooks* and *Merge Request Hooks*.
 * NodeJS 8.3
 * Express 4.10.*
 
+See others dependencies [here](https://github.com/brunojdo/slack-gitlab-notifier/blob/master/app/package.json).
+
 ## Usage
+
+There is two ways to start the service that we describe on follow sections.
 
 ### Docker Image
 
@@ -20,7 +24,19 @@ So far, we integrated *Push Hooks* and *Merge Request Hooks*.
 
 You can start the service using a docker container. Execute the command below: 
 
-`docker run -d --restart=always -p 8008:8080 --name notifier-slgb brunodias20/slack-gitlab-notifier:latest`
+`docker run -d --restart=always -p 8080:8080 -e SLACK_TOKEN=your-bot-token --name notifier-slgb brunodias20/slack-gitlab-notifier:latest`
+
+**Environment Setup** 
+
+You **must** pass the token of slack bot trough environment variable `SLACK_TOKEN`. 
+
+You also can pass an env `SERVICE_PORT` that will set a port of the service inside the container *(optional)*. 
+
+In addition, you can simply configure your own `config.yml` and bind as a volume with your container. For example: 
+
+`docker run -d --restart=always -p 8080:8080 --name notifier-slgb -v ~/config.yml:/opt/app/config.yml brunodias20/slack-gitlab-notifier:latest`
+
+**ATTENTION:* You must bind your `config.yml` correctly. The path of `config.yml` inside the container is `/opt/app/config.yml`. [See](https://github.com/brunojdo/slack-gitlab-notifier#file-configyml) more information about `config.yml`
 
 ### NPM 
 
@@ -40,7 +56,7 @@ To create a slackbot [click here](https://my.slack.com/services/new/bot). If you
 
 ### File `config.yml`
 
-This file has several configuration options, such as: 
+This [file](https://github.com/brunojdo/slack-gitlab-notifier/blob/master/app/config.yml) has several configuration options, such as: 
 
 | Parameter	| Description | Required |
 | :------- | :------ | :------ |

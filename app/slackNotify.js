@@ -27,7 +27,7 @@ module.exports = {
             }
         ];
         // When a branch is created or removed will not be send message
-        if (!event.total_commits_count) {
+        if (event.total_commits_count) {
             sendChannelMessage(conf.slack.push_channel, titleMessage, slackParams);
         };
     },
@@ -101,7 +101,7 @@ function buildMessageByAction(action, submitter){
  * more information about additional params: https://api.slack.com/methods/chat.postMessage
  */ 
 var slackParams = {
-    icon_emoji: conf.slack.icon,
+    icon_emoji: conf.slack.bot.icon,
 };
 
 /**
@@ -118,7 +118,9 @@ function sendChannelMessage(ch, message, params) {
     });
     bot.on('start', function() {
         console.log("Send message to: " + ch)
-        bot.postMessageToChannel(ch, message, params)
+        bot.postMessageToChannel(ch, message, params).fail(function(data){
+            console.err(data);
+        });
     });
 };
 
@@ -137,6 +139,8 @@ function sendDMMessage(user, message, params) {
     });
     bot.on('start', function(){
         console.log("Send message to: " + user)    
-        bot.postMessageToUser(user, message, params)
+        bot.postMessageToUser(user, message, params).fail(function(data){
+            console.err(data);
+        });
     });
 };

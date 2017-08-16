@@ -71,9 +71,14 @@ Just change the `lang_selector` parameter into `config.yml` file to the language
 
 You can also contribute with the project by translating it to your language and submitting a PR to us!
 
+
+## Troubleshooting 
+
+You can check if others are experiencing similar issues [here](https://github.com/brunojdo/slack-gitlab-notifier/issues/new). Also feel free to open [issues](https://github.com/brunojdo/slack-gitlab-notifier/issues/new) 
+
 ## Contributing
 
-Feel free to open [issues](https://github.com/brunojdo/slack-gitlab-notifier/issues/new) and make [PR](https://github.com/brunojdo/slack-gitlab-notifier/pulls) to the project! :heart: 
+You can contribute to our project!! to the See our issues list and make a [PR](https://github.com/brunojdo/slack-gitlab-notifier/pulls)! :heart:
 
 ## Acknowledgement
 

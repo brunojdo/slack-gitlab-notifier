@@ -36,7 +36,7 @@ In addition, you can simply configure your own `config.yml` and bind as a volume
 
 `docker run -d --restart=always -p 8080:8080 --name notifier-slgb -v ~/config.yml:/opt/app/config.yml brunodias20/slack-gitlab-notifier:latest`
 
-**ATTENTION:* You must bind your `config.yml` correctly. The path of `config.yml` inside the container is `/opt/app/config.yml`. [See](https://github.com/brunojdo/slack-gitlab-notifier#file-configyml) more information about `config.yml`
+**ATTENTION:** You must bind your `config.yml` correctly. The path of `config.yml` inside the container is `/opt/app/config.yml`. [See](https://github.com/brunojdo/slack-gitlab-notifier#file-configyml) more information about `config.yml`
 
 ### NPM 
 

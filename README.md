@@ -14,15 +14,13 @@ So far, we integrated *Push Hooks* and *Merge Request Hooks*.
 
 ## Usage
 
-### Docker
-
+### Docker Image
 
 [![](https://images.microbadger.com/badges/image/brunodias20/slack-gitlab-notifier.svg)](https://microbadger.com/images/brunodias20/slack-gitlab-notifier "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/brunodias20/slack-gitlab-notifier.svg)](https://microbadger.com/images/brunodias20/slack-gitlab-notifier "Get your own version badge on microbadger.com")
 
-
 You can start the service using a docker container. Execute the command below: 
 
-`docker run -d --restart=always -p 8008:8080 --name notifier-slgb brunodias20/slack-gitlab-notifier:{version}`
+`docker run -d --restart=always -p 8008:8080 --name notifier-slgb brunodias20/slack-gitlab-notifier:latest`
 
 ### NPM 
 

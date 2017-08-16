@@ -78,7 +78,7 @@ You can check if others are experiencing similar issues [here](https://github.co
 
 ## Contributing
 
-You can contribute to our project!! to the See our issues list and make a [PR](https://github.com/brunojdo/slack-gitlab-notifier/pulls)! :heart:
+You can contribute to our project!! To do this, see our **issues list** and make a [PR](https://github.com/brunojdo/slack-gitlab-notifier/pulls)! :heart:
 
 ## Acknowledgement
 

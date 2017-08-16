@@ -1,6 +1,6 @@
 # Gitlab-Slack Notifier
 
-This project has the objective to integrate Gitlab with Slack teams through webhooks. We create a service in NodeJS, that handle the hooks and send messages to channels and direct messages to slack users. 
+This project aims to integrate Gitlab with Slack teams through webhooks. To do so, we created a service in NodeJS that handle the hooks to Slack channels and also direct messages to slack users.
 
 So far, we integrated *Push Hooks* and *Merge Request Hooks*.
 
@@ -16,21 +16,21 @@ So far, we integrated *Push Hooks* and *Merge Request Hooks*.
 
 ### Docker
 
-You can start the service using container. Execute the command below: 
+You can start the service using a docker container. Execute the command below: 
 
 `docker run -d --restart=always -p 8008:8080 --name notifier-slgb brunodias20/slack-gitlab-notifier:{version}`
 
 ### NPM 
 
-If you prefer, you also may clone this project, and into `app/` folder, execute: 
+If you prefer, you may also clone this project and run `npm`. On the `./app` folder you can execute:
 
 `npm run build && npm run serve`
 
 ## Setup
 
-### Enable Gitlab Webhooks
+### Enable Webhooks
 
-You need to enable Webhooks in your gitlab. Go into your project **Settings -> Integrations** and put your service address. For example: `http://localhost:8008/webhook` and select which hooks you want use. For more informations [click here.](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html)
+In your Gitlab project select **Settings -> Integrations** and put your service address. For example, on: `http://localhost:8008/webhook` select which hooks you want use. For more informations [click here.](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html)
 
 ### Create a SlackBot
 
@@ -69,7 +69,11 @@ This project has **two** languages defined to send slack notifications:
 
 Just change the `lang_selector` parameter into `config.yml` file to the language that you prefer. 
 
-You can also contribute with the project translate to your language and send a PR to us! 
+You can also contribute with the project by translating it to your language and submitting a PR to us!
+
+## Contributing
+
+Feel free to open [issues](https://github.com/brunojdo/slack-gitlab-notifier/issues/new) and make [PR](https://github.com/brunojdo/slack-gitlab-notifier/pulls) to the project! :heart: 
 
 ## Acknowledgement
 

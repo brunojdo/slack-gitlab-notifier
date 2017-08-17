@@ -19,13 +19,15 @@ module.exports = {
         event.commits.forEach(function(commit){
             commitText += commit.message.replace(/\n/g, ' ') + " - " + commit.author.name + "\n";
         });
-        slackParams.attachments = [
-            {
+        /** More information about additional params: https://api.slack.com/methods/chat.postMessage */ 
+        let slackParams = { 
+            icon_emoji: conf.slack.bot.icon,
+            attachments: [{
                 color: conf.slack.clrPush,
                 title: event.total_commits_count + lang.m_commit,
                 text: commitText
-            }
-        ];
+            }]
+        };
         // When a branch is created or removed will not be send message
         if (event.total_commits_count) {
             sendChannelMessage(conf.slack.push_channel, titleMessage, slackParams);
@@ -40,41 +42,47 @@ module.exports = {
         // Assignee must be defined
         if (!event.assignee) {
             let message = lang.no_assignee
-            slackParams.attachments = [{
-                color: conf.slack.clrNotAssigned,
-                title: event.object_attributes.title,
-                title_link: event.object_attributes.url
-            }];
+            let slackParams = {
+                icon_emoji: conf.slack.bot.icon,                
+                attachments: [{
+                    color: conf.slack.clrNotAssigned,
+                    title: event.object_attributes.title,
+                    title_link: event.object_attributes.url
+                }]
+            };
             sendDMMessage(event.user.username, message, slackParams);
             return;
         };
         let partMessage = buildMessageByAction(event.object_attributes.action, event.user.name);
-        let titleMessage = lang.m_merge + event.repository.name + partMessage.mType + '`'
-        slackParams.attachments = [{
-            color: partMessage.mrColor,
-            title: event.object_attributes.title,
-            title_link: event.object_attributes.url,
-            fields: [{
-                title: lang.send_by,
-                value: event.user.name,
-                short: true
-            },
-            {
-                title: lang.send_to,
-                value: event.assignee.name,
-                short: true
-            },
-            {
-                title: "Target Branch",
-                value: event.object_attributes.target_branch,
-                short: true          
-            },
-            {
-                title: "Source Branch",
-                value: event.object_attributes.source_branch,
-                short: true
+        let titleMessage = lang.m_merge + event.repository.name + '`' + partMessage.mType
+        let slackParams = { 
+            icon_emoji: conf.slack.bot.icon,            
+            attachments: [{
+                color: partMessage.mrColor,
+                title: event.object_attributes.title,
+                title_link: event.object_attributes.url,
+                fields: [{
+                    title: lang.send_by,
+                    value: event.user.name,
+                    short: true
+                },
+                {
+                    title: lang.send_to,
+                    value: event.assignee.name,
+                    short: true
+                },
+                {
+                    title: "Target Branch",
+                    value: event.object_attributes.target_branch,
+                    short: true          
+                },
+                {
+                    title: "Source Branch",
+                    value: event.object_attributes.source_branch,
+                    short: true
+                }]
             }]
-        }];
+        };
         sendChannelMessage(conf.slack.mr_channel, titleMessage, slackParams);
         sendDMMessage(event.assignee.username, titleMessage, slackParams);
     }
@@ -95,14 +103,6 @@ function buildMessageByAction(action, submitter){
         return {mType: lang.merged_by + submitter, mrColor: conf.slack.clrMerge};
     };
 }
-
-/**
- * Parameters to attach on slack message
- * more information about additional params: https://api.slack.com/methods/chat.postMessage
- */ 
-var slackParams = {
-    icon_emoji: conf.slack.bot.icon,
-};
 
 /**
  * Notify a slack channel.

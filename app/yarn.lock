@@ -1196,7 +1196,7 @@ serve-static@~1.7.2:
     send "0.10.1"
     utils-merge "1.0.0"
 
-slackbots@1.0.x:
+slackbots@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/slackbots/-/slackbots-1.0.2.tgz#eeeef6eb13c9bf67a0d0fc3ec52ec384c20023a2"
   dependencies:

@@ -53,7 +53,7 @@ If you prefer, you may also clone this project and run `npm`. On the `./app` fol
 
 ### Enable Webhooks
 
-In your Gitlab project select **Settings -> Integrations** and put your service address. For example, on: `http://localhost:8008/webhook` select which hooks you want use. For more information [click here.](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html)
+In your Gitlab project select **Settings -> Integrations** and put your service address. For example, on: `http://localhost:8080/webhook` select which hooks you want use. For more information [click here.](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html)
 
 ### Create a SlackBot
 

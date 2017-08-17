@@ -108,24 +108,20 @@ function buildMessageByAction(action, submitter){
  * Create a Singleton bot that open a RTM connection with Slack Service
  * @return {object - Slack session object} 
  */
-var BotSingleton = (function () {
+var Bot = (function () {
     var object;
-    function createInstance() {
-        return new SlackBot({
-            name: conf.slack.bot.name,
-            token: conf.slack.bot.token
-        });
-    }
     return {
         getInstance: function () {
             if (!object) {
-                object = createInstance();
+                object = new SlackBot({
+                    name: conf.slack.bot.name,
+                    token: conf.slack.bot.token
+                });
             }
             return object;
         }
     };
 })();
- 
 
 /**
  * Notify a slack channel.
@@ -134,9 +130,8 @@ var BotSingleton = (function () {
  * @param {Another parameters to send on the message} params 
  */
 function sendChannelMessage(ch, message, params) {
-    var bot = BotSingleton.getInstance();
     console.log("Send message to: " + ch)
-    bot.postMessageToChannel(ch, message, params).fail(function(data){
+    Bot.getInstance.postMessageToChannel(ch, message, params).fail(function(data){
         console.err(data);
     });
 };
@@ -149,9 +144,8 @@ function sendChannelMessage(ch, message, params) {
  * @param {Another parameters to send on the message} params 
  */
 function sendDMMessage(user, message, params) {
-    var bot = BotSingleton.getInstance();
     console.log("Send message to: " + user)    
-    bot.postMessageToUser(user, message, params).fail(function(data){
+    Bot.getInstance.postMessageToUser(user, message, params).fail(function(data){
         console.err(data);
     });
 };

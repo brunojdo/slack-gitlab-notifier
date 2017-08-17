@@ -7,6 +7,7 @@ So far, we integrated *Push Hooks* and *Merge Request Hooks*.
 **IMPORTANT:** If you want to notify the slack users through DM, they must have the same username in Gitlab and Slack.
 ##### Ex: Slack username: @brunojdo and Gitlab username: brunojdo
 
+
 ### Dependencies
 
 * NodeJS 8.3
@@ -37,6 +38,10 @@ In addition, you can simply configure your own `config.yml` and bind as a volume
 `docker run -d --restart=always -p 8080:8080 --name notifier-slgb -v ~/config.yml:/opt/app/config.yml brunodias20/slack-gitlab-notifier:latest`
 
 **ATTENTION:** You must bind your `config.yml` correctly. The path of `config.yml` inside the container is `/opt/app/config.yml`. [See](https://github.com/brunojdo/slack-gitlab-notifier#file-configyml) more information about `config.yml`
+
+### Docker Store
+
+This project is also available on Docker Store, check out [here](https://store.docker.com/community/images/brunodias20/slack-gitlab-notifier)! 
 
 ### NPM 
 

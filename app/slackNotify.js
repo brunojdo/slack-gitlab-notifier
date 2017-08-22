@@ -130,8 +130,9 @@ var Bot = (function () {
  * @param {Another parameters to send on the message} params 
  */
 function sendChannelMessage(ch, message, params) {
-    console.log("Send message to: " + ch)
-    Bot.getInstance.postMessageToChannel(ch, message, params).fail(function(data){
+    var bot = Bot.getInstance();
+    console.log("Send message to: " + ch);
+    bot.postMessageToChannel(ch, message, params).fail(function(data){
         console.err(data);
     });
 };
@@ -144,8 +145,9 @@ function sendChannelMessage(ch, message, params) {
  * @param {Another parameters to send on the message} params 
  */
 function sendDMMessage(user, message, params) {
-    console.log("Send message to: " + user)    
-    Bot.getInstance.postMessageToUser(user, message, params).fail(function(data){
+    var bot = Bot.getInstance();
+    console.log("Send message to: " + user);
+    bot.postMessageToUser(user, message, params).fail(function(data){
         console.err(data);
     });
 };

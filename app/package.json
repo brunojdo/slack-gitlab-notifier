@@ -8,6 +8,7 @@
     "type": "git"
   },
   "scripts": {
+    "prestart": "yarn",
     "start": "nodemon express.js -e yml,js,json --exec babel-node",
     "build": "babel *.js -d dist",
     "serve": "node dist/express.js"

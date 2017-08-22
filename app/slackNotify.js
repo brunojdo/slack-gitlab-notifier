@@ -105,22 +105,35 @@ function buildMessageByAction(action, submitter){
 }
 
 /**
+ * Create a Singleton bot that open a RTM connection with Slack Service
+ * @return {object - Slack session object} 
+ */
+var Bot = (function () {
+    var object;
+    return {
+        getInstance: function () {
+            if (!object) {
+                object = new SlackBot({
+                    name: conf.slack.bot.name,
+                    token: conf.slack.bot.token
+                });
+            }
+            return object;
+        }
+    };
+})();
+
+/**
  * Notify a slack channel.
  * 
  * @param {Message to be send to slack} message 
  * @param {Another parameters to send on the message} params 
  */
 function sendChannelMessage(ch, message, params) {
-    // Create a bot - To add a bot https://my.slack.com/services/new/bot
-    var bot = new SlackBot({
-        name: conf.slack.bot.name,
-        token: conf.slack.bot.token
-    });
-    bot.on('start', function() {
-        console.log("Send message to: " + ch)
-        bot.postMessageToChannel(ch, message, params).fail(function(data){
-            console.err(data);
-        });
+    var bot = Bot.getInstance();
+    console.log("Send message to: " + ch);
+    bot.postMessageToChannel(ch, message, params).fail(function(data){
+        console.err(data);
     });
 };
 
@@ -132,15 +145,9 @@ function sendChannelMessage(ch, message, params) {
  * @param {Another parameters to send on the message} params 
  */
 function sendDMMessage(user, message, params) {
-    // Create a bot - To add a bot https://my.slack.com/services/new/bot
-    var bot = new SlackBot({ 
-        name: conf.slack.bot.name,        
-        token: conf.slack.bot.token
-    });
-    bot.on('start', function(){
-        console.log("Send message to: " + user)    
-        bot.postMessageToUser(user, message, params).fail(function(data){
-            console.err(data);
-        });
+    var bot = Bot.getInstance();
+    console.log("Send message to: " + user);
+    bot.postMessageToUser(user, message, params).fail(function(data){
+        console.err(data);
     });
 };

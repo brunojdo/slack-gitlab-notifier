@@ -1,6 +1,6 @@
 system: 
   name: Slack-Gitlab Notifier
-  port: 8080
+  port: 
 lang_selector: lang/en_US.yml
 slack: 
   bot:

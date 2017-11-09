@@ -1,5 +1,7 @@
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
+import * as _ from 'lodash';
+
 const SlackBot = require('slackbots');
 
 const conf = yaml.load(fs.readFileSync('config.yml'));
@@ -85,6 +87,25 @@ module.exports = {
         };
         sendChannelMessage(conf.slack.mr_channel, titleMessage, slackParams);
         sendDMMessage(event.assignee.username, titleMessage, slackParams);
+    },
+
+    /**
+     * Send a Merge Request update warning to a specific user informing their list of MR's
+     * with either merge conflict problems or broken pipelines.
+     * @param MRList List of MR's links with problems.
+     * @param user User receiving the update warning.
+     */
+    mergeRequestUpdateMessage: function(MRList, user) {
+        let titleMessage = lang.title_merge_warning;
+        let slackParams = {
+            icon_emoji: conf.slack.bot.icon,
+            attachments: [{
+                color: conf.slack.clrWarning,
+                title: lang.msg_merge_warning,
+                fields: _.map(MRList, MR => ({value : MR}))
+            }]
+        };
+        sendDMMessage(user, titleMessage, slackParams);
     }
 };
 

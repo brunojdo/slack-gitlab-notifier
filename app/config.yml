@@ -23,4 +23,3 @@ gitlab:
       Merge Request Hook
   url:
   token:
-  projects: []

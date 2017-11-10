@@ -8,6 +8,9 @@ const conf = yaml.load(fs.readFileSync('config.yml'));
 const gitlabUrl = conf.gitlab.url;
 const gitlabToken = conf.gitlab.token;
 
+/**
+ * Initiating GitLab api library with properties contained in the config.yml file.
+ */
 const GitlabAPI = require('node-gitlab-api')({
     url: gitlabUrl,
     token: gitlabToken
@@ -18,7 +21,8 @@ export const GitlabService = {
     /**
      * Verify the list of gitlab projects IDs and their MR List, warning users of
      * MRs with merge problems.
-     * @param gitlabProjectsID List of gitlab projects IDs to be verified.
+     * @param gitlabProjectsID List of gitlab projects IDs to be verified. If the list
+     * is empty all the projects IDs are used. IDs acquired with the getAllProjectsID function.
      */
     verifyAndWarnMRProblems: async function(gitlabProjectsID){
         if(_.isEmpty(gitlabProjectsID)) gitlabProjectsID = await getAllProjectsID();
@@ -44,6 +48,10 @@ const getMergeRequestFromProject = async function (projectId) {
         && !MR.work_in_progress);
 };
 
+/**
+ * Gets all projects IDs using the GitLab API.
+ * @returns {Promise.<Array>} Array containing the project IDs
+ */
 const getAllProjectsID = async function () {
     const projectsList = await GitlabAPI.projects.all();
     return _.map(projectsList, (project) => project.id);

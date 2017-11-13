@@ -1,9 +1,11 @@
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
-var SlackBot = require('slackbots');
+import * as _ from 'lodash';
 
-var conf = yaml.load(fs.readFileSync('config.yml'));
-var lang = yaml.load(fs.readFileSync(conf.lang_selector))
+const SlackBot = require('slackbots');
+
+const conf = yaml.load(fs.readFileSync('config.yml'));
+const lang = yaml.load(fs.readFileSync(conf.lang_selector));
 
 module.exports = {
     /**
@@ -14,7 +16,7 @@ module.exports = {
         let titleMessage = "*" + event.user_name + lang.m_push +
             event.repository.name + lang.m_branch +
             event.ref + "`";
-        let commitText = ''
+        let commitText = '';
         // Catch all commits
         event.commits.forEach(function(commit){
             commitText += commit.message.replace(/\n/g, ' ') + " - " + commit.author.name + "\n";
@@ -31,7 +33,7 @@ module.exports = {
         // When a branch is created or removed will not be send message
         if (event.total_commits_count) {
             sendChannelMessage(conf.slack.push_channel, titleMessage, slackParams);
-        };
+        }
     },
     /**
      * Build a merge request message to send on slack channel and DM to assignee
@@ -41,7 +43,7 @@ module.exports = {
     mergeRequestMessage: function(event) {
         // Assignee must be defined
         if (!event.assignee) {
-            let message = lang.no_assignee
+            let message = lang.no_assignee;
             let slackParams = {
                 icon_emoji: conf.slack.bot.icon,                
                 attachments: [{
@@ -52,9 +54,9 @@ module.exports = {
             };
             sendDMMessage(event.user.username, message, slackParams);
             return;
-        };
+        }
         let partMessage = buildMessageByAction(event.object_attributes.action, event.user.name);
-        let titleMessage = lang.m_merge + event.repository.name + '`' + partMessage.mType
+        let titleMessage = lang.m_merge + event.repository.name + '`' + partMessage.mType;
         let slackParams = { 
             icon_emoji: conf.slack.bot.icon,            
             attachments: [{
@@ -85,8 +87,27 @@ module.exports = {
         };
         sendChannelMessage(conf.slack.mr_channel, titleMessage, slackParams);
         sendDMMessage(event.assignee.username, titleMessage, slackParams);
+    },
+
+    /**
+     * Send a Merge Request update warning to a specific user informing their list of MR's
+     * with either merge conflict problems or broken pipelines.
+     * @param MRList List of MR's links with problems.
+     * @param user User receiving the update warning.
+     */
+    mergeRequestUpdateMessage: function(MRList, user) {
+        let titleMessage = lang.title_merge_warning;
+        let slackParams = {
+            icon_emoji: conf.slack.bot.icon,
+            attachments: [{
+                color: conf.slack.clrWarning,
+                title: lang.msg_merge_warning,
+                fields: _.map(MRList, MR => ({value : MR}))
+            }]
+        };
+        sendDMMessage(user, titleMessage, slackParams);
     }
-}
+};
 
 /**
  * Build part of notification message based on action type of the event.
@@ -101,15 +122,15 @@ function buildMessageByAction(action, submitter){
         return {mType: lang.updated_by + submitter, mrColor: conf.slack.clrUpdate};
     } else if (action.includes("merge")) {
         return {mType: lang.merged_by + submitter, mrColor: conf.slack.clrMerge};
-    };
+    }
 }
 
 /**
  * Create a Singleton bot that open a RTM connection with Slack Service
  * @return {object - Slack session object} 
  */
-var Bot = (function () {
-    var object;
+const Bot = (function () {
+    let object;
     return {
         getInstance: function () {
             if (!object) {
@@ -130,12 +151,12 @@ var Bot = (function () {
  * @param {Another parameters to send on the message} params 
  */
 function sendChannelMessage(ch, message, params) {
-    var bot = Bot.getInstance();
+    const bot = Bot.getInstance();
     console.log("Send message to: " + ch);
     bot.postMessageToChannel(ch, message, params).fail(function(data){
         console.err(data);
     });
-};
+}
 
 /**
  * Notify a slack user.
@@ -145,9 +166,9 @@ function sendChannelMessage(ch, message, params) {
  * @param {Another parameters to send on the message} params 
  */
 function sendDMMessage(user, message, params) {
-    var bot = Bot.getInstance();
+    const bot = Bot.getInstance();
     console.log("Send message to: " + user);
     bot.postMessageToUser(user, message, params).fail(function(data){
         console.err(data);
     });
-};
+}

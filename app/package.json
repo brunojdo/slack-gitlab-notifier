@@ -19,8 +19,12 @@
     "babel-preset-stage-2": "6.24.x",
     "express": "4.10.x",
     "fs": "0.0.1-security",
-    "js-yaml": "3.9.x",
     "gitlab-webhook-handler2": "0.1.2",
+    "js-yaml": "3.9.x",
     "slackbots": "1.0.2"
+  },
+  "dependencies": {
+    "lodash": "4.17.x",
+    "node-gitlab-api": "1.1.x"
   }
 }

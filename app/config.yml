@@ -14,9 +14,12 @@ slack:
   clrUpdate: '#3019ff'
   clrMerge: '#16c8c6'
   clrNotAssigned: '#dd111f'
+  clrWarning: '#dd1207'
 gitlab:
   events: 
     - 
       Push Hook
     - 
-      Merge Request Hook      
+      Merge Request Hook
+  url:
+  token:
